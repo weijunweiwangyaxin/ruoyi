@@ -29,7 +29,7 @@ public class SysPasswordService
     private CacheManager cacheManager;
 
     private Cache<String, AtomicInteger> loginRecordCache;
-
+    /*从配置文件中获取属性   密码输入最大错误次数*/
     @Value(value = "${user.password.maxRetryCount}")
     private String maxRetryCount;
 
@@ -83,8 +83,14 @@ public class SysPasswordService
         return new Md5Hash(username + password + salt).toHex().toString();
     }
 
+    public static void main(String[] args) {
+
+        System.out.println(new Md5Hash("admin" + 123456 + 111111).toHex().toString());
+    }
+
     public void unlock(String loginName){
         loginRecordCache.remove(loginName);
     }
+
 
 }
